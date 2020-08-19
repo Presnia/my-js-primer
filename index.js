@@ -19,7 +19,7 @@ const x1 = a;
 const x2 = b;
 const x3 = c;
 
-if (a ** 2 + b ** 2 === c ** 2) {
+if (a**2 + b**2 === c**2) {
   console.log('true');
 } else {
   console.log('false');
