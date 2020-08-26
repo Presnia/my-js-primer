@@ -14,3 +14,20 @@ for (let i = 0; i < 20; i += 1) {
 }
 
 // произведение элементов в каждой третьей позиции
+const c = [];
+const d = [];
+const e = [];
+
+for (let i = 1; i < 10 ; i+= 1) {
+  c.push(i); 
+}
+for (let k = 2; k < 10; k += 1) {
+  d.push(k); 
+}
+for (let i = 0; i < c.length; i++) {
+  e.push(c[i] * d[k]); 
+}
+
+for (let i = 0; i < e.length; i += 1) {
+  console.log(e) 
+}
