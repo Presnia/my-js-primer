@@ -95,8 +95,8 @@ console.log(sumTriangle);
 
 // сумма чисел в нижнем треугольнике относительно вспомогательной диагонали без суммы диагонали
 let underD = 0;
-for (let i = 1; i < matrix.length; i += 1) {
-  for (let j = 1; j < matrix.length; j += 1) {
+for (let i = 0; i < 8; i += 1) {
+  for (let j = 1; j < 8; j += 1) {
     underD += matrix[8 - i][j];
   }
 }
