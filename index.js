@@ -113,3 +113,21 @@ for (let i = 0; i < matrix.length; i += 2) {
   console.log(arithmeticRow);
   sumRow = 0;
 }
+
+// найти максимальное и минимальное число для (1)
+
+let max1 = 0;
+for (var i = 0; i < numbers.length; i += 1) { 
+  if (max1 < numbers[i]) 
+  max1 = numbers[i];
+}
+console.log(max1);
+
+let min1 = numbers[0];
+for (var i = 0; i < numbers.length; i += 1) {
+  if (min1 > numbers[i])
+    min1 = numbers[i];
+}
+console.log(min1);
+
+
