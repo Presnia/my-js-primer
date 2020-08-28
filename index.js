@@ -79,7 +79,7 @@ let finalSum = 0;
 for (let j = 0; j < s.length; j += 1) {
     finalSum += s[j];
 }
-console.log(finalSum);
+// console.log(finalSum);
 
 // сумма элементов главной диагонали
 let sumD = 0;
@@ -87,9 +87,17 @@ for (let i = 0; i < 9; i += 1) {
   sumD += i**2;
 }
 
-// сумма элементов треугольника без суммы главной диагонали
+// сумма чисел верхнего треугольника без суммы главной диагонали
 let sumTriangle = 0;
 sumTriangle = (finalSum - sumD) / 2;
 
 console.log(sumTriangle);
 
+// сумма чисел в нижнем треугольнике относительно вспомогательной диагонали без суммы диагонали
+let underD = 0;
+for (let i = 1; i < matrix.length; i += 1) {
+  for (let j = 1; j < matrix.length; j += 1) {
+    underD += matrix[8 - i][j];
+  }
+}
+console.log(underD);
