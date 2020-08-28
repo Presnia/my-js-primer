@@ -109,6 +109,7 @@ for (let i = 0; i < matrix.length; i += 2) {
   for (let j = 0; j < matrix.length; j += 1) {
     sumRow += matrix[i][j];
   }
-  arithmeticRow = sumRow / 2;
+  arithmeticRow = sumRow / matrix.length;
   console.log(arithmeticRow);
+  sumRow = 0;
 }
