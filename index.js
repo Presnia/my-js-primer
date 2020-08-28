@@ -81,7 +81,7 @@ for (let j = 0; j < s.length; j += 1) {
 }
 // console.log(finalSum);
 
-// сумма элементов главной диагонали
+// сумма чисел главной диагонали
 let sumD = 0;
 for (let i = 0; i < 9; i += 1) {
   sumD += i**2;
@@ -101,3 +101,14 @@ for (let i = 0; i < 8; i += 1) {
   }
 }
 console.log(underD);
+
+// посчитать среднее арифметическое сумм каждой нечётной строки
+
+let sumRow = 0;
+for (let i = 0; i < matrix.length; i += 2) {
+  for (let j = 0; j < matrix.length; j += 1) {
+    sumRow += matrix[i][j];
+  }
+  arithmeticRow = sumRow / 2;
+  console.log(arithmeticRow);
+}
