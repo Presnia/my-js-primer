@@ -114,20 +114,104 @@ for (let i = 0; i < matrix.length; i += 2) {
   sumRow = 0;
 }
 
+//посчитать сумму всех элементов для для каждого чётного сторбца
+
+let sumColumn = 0;
+for (let i = 2; i < matrix.length; i += 2) {
+  for (let j = 0; j < matrix.length; j += 1) {
+    sumColumn += matrix[j][i]; 
+  }
+  console.log(sumColumn);
+}
+
 // найти максимальное и минимальное число для (1)
 
 let max1 = 0;
-for (var i = 0; i < numbers.length; i += 1) { 
+for (let i = 0; i < numbers.length; i += 1) { 
   if (max1 < numbers[i]) 
   max1 = numbers[i];
 }
 console.log(max1);
 
 let min1 = numbers[0];
-for (var i = 0; i < numbers.length; i += 1) {
+for (let i = 0; i < numbers.length; i += 1) {
   if (min1 > numbers[i])
     min1 = numbers[i];
 }
 console.log(min1);
 
+// найти максимальное и минимальное число для всей матрицы
+
+let maxMatrix = 0;
+for (let i = 0; i < matrix.length; i += 1) {
+  for (let j = 0; j < matrix.length; j += 1) {
+    if (maxMatrix < matrix[i][j])
+      maxMatrix = matrix[i][j];
+  }
+}
+console.log(maxMatrix);
+
+let minMatrix = matrix[0][0];
+for (let i = 0; i < matrix.length; i += 1) {
+  for (let j = 0; j < matrix.length; j++) {
+    if (minMatrix > matrix[i][j])
+      minMatrix = matrix[i][j];
+  }
+}
+console.log(minMatrix);
+
+//найти максимальное и минимальное число для каждой строки матрицы
+
+let maxColumnMatrix = 0;
+for (let i = 0; i < matrix.length; i += 1) {
+  for (let j = 0; j < matrix.length; j += 1) {
+    if (maxColumnMatrix < matrix[i][j])
+      maxColumnMatrix = matrix[i][j];
+  }
+  console.log(maxColumnMatrix);
+}
+
+let minColumnMatrix = matrix[0][0];
+for (let i = 0; i < matrix.length; i += 1) {
+  for (let j = 0; j < matrix.length; j++) {
+    if (minColumnMatrix > matrix[i][j])
+      minColumnMatrix = matrix[i][j];
+  }
+  console.log(minColumnMatrix);
+}
+
+//найти максимальное и минимальное число для каждого столбца матрицы
+
+let maxRowMatrix = 0;
+for (let i = 0; i < matrix.length; i += 1) {
+  for (let j = 0; j < matrix.length; j += 1) {
+    if (maxRowMatrix < matrix[j][i])
+      maxRowMatrix = matrix[j][i];
+  }
+  console.log(maxRowMatrix);
+}
+
+let minRowMatrix = matrix[0][0];
+for (let i = 0; i < matrix.length; i += 1) {
+  for (let j = 0; j < matrix.length; j++) {
+    if (minRowMatrix > matrix[j][i])
+      minRowMatrix = matrix[j][i];
+  }
+  console.log(minRowMatrix);
+}
+
+// найти строку с наибольшим количеством чисел больше 50-ти
+/* let n = 0;
+
+for (let i = 0; i < matrix.length; i += 1) {
+  for (let j = 0; j < matrix.length; j += 1) {
+    const value = matrix[i][j];
+    if (value > 50) {
+      n += 1;
+      fifty.push(underFifty);
+    } 
+    
+  }
+  
+} */
 
