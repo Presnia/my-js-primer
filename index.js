@@ -4,43 +4,59 @@
 
 // удовлетворяют ли теореме Пифагора три числа
 
-function rightTriangle(a, b, c) {
+const rightTriangle = (a, b, c) =>
+  a ** 2 + b ** 2 === c ** 2;
+
+const showTriangle = (a, b, c) => {
   if (a ** 2 + b ** 2 === c ** 2) {
-    return 'true';
+    console.log(`Треугольник со сторонами ${a}, ${b} и ${c} является прямоугольным `);
   } else {
-    return 'false';
+    console.log(`Треугольник со сторонами ${a}, ${b} и ${c} не является прямоугольным `);
   }
 }
-const triangle = rightTriangle(12, 13, 14);
-console.log(triangle);
+
+const pa = 8;
+const pb = 15;
+const pc = 17;
+
+const t = rightTriangle(pa, pb, pc);
+showTriangle(pa, pb, pc, t);
 
 // расстояние между двумя точками
 
-function twoPointsDistance(a, b, c, d) {
-  const x1 = a;
-  const y1 = c;
+const getDistance = (x1, y1, x2, y2) =>
+  Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
 
-  const x2 = b;
-  const y2 = d;
+const showResult = (x1, y1, x2, y2, d) =>
+  console.log(
+    `Расстояние между точкой (${x1}, ${y1}) и точкой (${x2}, ${y2}) равняется ${d}`
+  );
 
-  const newX1 = (b - a) ** 2;
-  const newY1 = (d - c) ** 2;
+const px1 = 10;
+const py1 = 10;
 
-  const L = Math.sqrt(newX1 + newY1);
+const px2 = 20;
+const py2 = 10;
 
-  return L;
-}
-const distance = twoPointsDistance(3, 7, 10, 15);
-console.log(distance);
+const d = getDistance(px1, py1, px2, py2);
+showResult(px1, py1, px2, py2, d);
 
 // убедиться, что три числа могут являться сторонами треугольника
 
-function triangleSides(a, b, c) {
+const triangleSides = (a, b, c) =>
+  c < a + b && a < b + c && b < a + c;
+
+const showSides = (a, b, c) => {
   if (c < a + b && a < b + c && b < a + c) {
-    return 'true';
+    console.log(`Три числа ${(a)}, ${(b)} и ${(c)} могут являться сторонами треугольника `)
   } else {
-    return 'false';
+    console.log(`Три числа ${(a)}, ${(b)} и ${(c)} не могут являться сторонами треугольника `)
   }
 }
-const sidesOfTriangle = triangleSides(4,8,12);
-console.log(sidesOfTriangle);
+
+const la = 7;
+const lb = 9;
+const lc = 12;
+
+const long = triangleSides(la, lb, lc);
+showSides(la, lb, lc, long);
