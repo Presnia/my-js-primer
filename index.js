@@ -210,14 +210,6 @@ showDiagonal(pi, pj, diagonal);
 
 //посчитать сумму всех элементов для для каждого чётного сторбца
 
-/* let sumColumn = 0;
-for (let i = 2; i < matrix.length; i += 2) {
-  for (let j = 0; j < matrix.length; j += 1) {
-    sumColumn += matrix[j][i];
-  }
-  console.log(sumColumn);
-} */
-
 const sumColumn = () => {
   let sumColumn = 0;
   for (let i = 2; i < matrix.length; i += 2) {
@@ -229,7 +221,55 @@ const sumColumn = () => {
 };
 
 const showSumColumn = () =>
-  console.log(`Сумма всех элементов для каждого чётного столбца равна ${sc}`);
+  console.log(`Сумма всех элементов для каждого чётного столбца равна ${sc}.`);
 
 const sc = sumColumn();
 showSumColumn(sc);
+
+// сумма чисел в верхнем треугольнике относительно главной диагонали
+
+const sumUnderDiagonal1 = () => {
+  let underD1 = 0;
+  let total1 = 0;
+  let summ1 = [];
+  for (let i = 0; i < 9; i += 1) {
+    for (let j = 0; j < 9; j += 1) {
+      underD1 += matrix[i][8 - j];
+      summ1.push(underD1);
+      total1 += summ1[i];
+    }
+  }
+  return total1;
+};
+
+const showSumUnderD1 = () =>
+  console.log(
+    `Сумма чисел в верхнем треугольнике относительно главной диагонали равна ${sud}.`
+  );
+
+const sud = sumUnderDiagonal1();
+showSumUnderD1(sud);
+
+// сумма чисел в нижнем треугольнике относительно вспомогательной диагонали
+
+const sumUnderDiagonal2 = () => {
+  let underD2 = 0;
+  let total2 = 0;
+  let summ2 = [];
+  for (let i = 0; i < 9; i += 1) {
+    for (let j = 0; j < 9; j += 1) {
+      underD2 += matrix[8 - i][j];
+      summ2.push(underD2);
+      total2 += summ2[i];
+    }
+  }
+  return total2;
+};
+
+const showSumUnderD2 = () =>
+  console.log(
+    `Сумма чисел в нижнем треугольнике относительно вспомогательной диагонали равна ${sud2}.`
+  );
+
+const sud2 = sumUnderDiagonal2();
+showSumUnderD2(sud2);
