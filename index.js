@@ -234,7 +234,7 @@ const sumUnderDiagonal1 = () => {
   let summ1 = [];
   for (let i = 0; i < 9; i += 1) {
     for (let j = 0; j < 9; j += 1) {
-      underD1 += matrix[i][8 - j];
+      underD1 += matrix[i][j];
       summ1.push(underD1);
       total1 += summ1[i];
     }
@@ -261,6 +261,7 @@ const sumUnderDiagonal2 = () => {
       underD2 += matrix[8 - i][j];
       summ2.push(underD2);
       total2 += summ2[i];
+      underD2 = 0;
     }
   }
   return total2;
@@ -273,3 +274,108 @@ const showSumUnderD2 = () =>
 
 const sud2 = sumUnderDiagonal2();
 showSumUnderD2(sud2);
+
+// найти максимальное и минимальное число для всей матрицы, для каждой строки и для каждого столбца
+
+let maxMatrix = matrix[0][0];
+let minMatrix = matrix[0][0];
+const rowMax = [];
+const rowMin = [];
+const colMax = [];
+const colMin = [];
+
+const matrixMaxMin = () => {
+  for (let i = 0; i < matrix.length; i += 1) {
+    let maxR = matrix[i][0];
+    let minR = matrix[i][0];
+    for (let j = 0; j < matrix[i].length; j += 1) {
+      maxMatrix = matrix[i][j] > maxMatrix ? matrix[i][j] : maxMatrix;
+      minMatrix = matrix[i][j] < minMatrix ? matrix[i][j] : minMatrix;
+      maxR = matrix[i][j] > maxR ? matrix[i][j] : maxR;
+      minR = matrix[i][j] < minR ? matrix[i][j] : minR;
+    }
+    rowMax.push(maxR);
+    rowMin.push(minR);
+  }
+
+  for (let i = 0; i < matrix.length; i += 1) {
+    let maxC = matrix[i][0];
+    let minC = matrix[i][0];
+    for (let j = 0; j < matrix[i].length; j += 1) {
+      maxC = matrix[i][j] > maxC ? matrix[j][i] : maxC;
+      minC = matrix[i][j] < minC ? matrix[j][i] : minC;
+    }
+    colMax.push(maxC);
+    colMin.push(minC);
+  }
+}
+
+const showMaxMin = () =>
+  console.log(`Максимальным и минимальным числом для матрицы таблицы умножения являются соответственно ${maxMatrix} и ${minMatrix}. Максимумы для каждой строки: ${rowMax}, минимумы для каждой строки: ${rowMin}. Максимумы для каждого столбца: ${colMax}, минимумы для каждого столбца: ${colMin}.`);
+
+const maxmin = matrixMaxMin();
+showMaxMin(maxmin);
+
+// найти строку матрицы с наибольшим количеством чисел больше 50
+
+const limit = 50;
+let rowNumber = 0;
+let extraLimitCount = 0;
+
+for (let i = 0; i < matrix.length; i += 1) {
+  let count = 0;
+  for (let j = 0; j < matrix[i].length; j += 1) {
+    if (matrix[i][j] > limit) {
+      count += 1;
+    }
+  }
+  if (count > extraLimitCount) {
+    extraLimitCount = count;
+    rowNumber = i;
+  }
+}
+
+const showRowNumber = () => {
+  if (extraLimitCount === 0) {
+    console.log(`В матрице нет элементов больше ${limit}.`)
+  } else {
+    console.log(`Строкой с наибольшим количеством чисел больше 50-ти является строка с индексом ${rowNumber}.`);
+  }
+}
+
+
+showRowNumber();
+
+// обойти матрицу в шахматном порядке и все чёные клеточки заменить на 0, а для белых найти среднее арифметическое и максимальное число
+
+const u = generateMatrix(matrix);
+const tabFormatter = (value) => `${value.toString()}\t`;
+
+let sumTable = 0;
+let countTable = 0;
+let maxTable = u[0][0];
+
+for (let i = 0; i < u.length; i += 1) {
+  for (let j = 0; j < u[i].length; j += 1) {
+    let isBlack = j % 2 === 0;
+
+    if (i % 2 === 0) {
+      isBlack = j % 2 !== 0;
+    }
+    if (isBlack) {
+      u[i][j] = 0;
+    } else {
+      sumTable += u[i][j];
+      countTable += 1;
+      maxTable = u[i][j] > maxTable ? u[i][j] : maxTable;
+    }
+  }
+}
+
+const showTotal = () => {
+  console.log(`Среднее арифметическое для белых клеток ${sumTable / countTable}, а максимальное число ${maxTable}`);
+}
+
+printMatrix(u, tabFormatter);
+
+showTotal();
