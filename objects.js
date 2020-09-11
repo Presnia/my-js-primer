@@ -48,10 +48,10 @@ showTriangle(tVal.pa, tVal.pb, tVal.pc, t);
 // стороны треугольника
 
 let tSides = {
-la: 7,
-lb: 9,
-lc: 12,
-}
+  la: 7,
+  lb: 9,
+  lc: 12,
+};
 
 const triangleSides = (a, b, c) => c < a + b && a < b + c && b < a + c;
 
@@ -69,3 +69,52 @@ const showSides = (a, b, c) => {
 
 const long = triangleSides(tSides.la, tSides.lb, tSides.lc);
 showSides(tSides.la, tSides.lb, tSides.lc, long);
+
+// Анкета
+
+let i = 0;
+
+let form = {
+  firstName: [
+    "Andrew",
+    "Alice",
+    "Matthew",
+    "Elizabeth",
+    "Peter",
+    "Kathrine",
+    "Robert",
+    "Sophie",
+    "George",
+    "Emily",
+  ],
+  surName: [
+    "Debysh",
+    "Eve",
+    "King",
+    "Queen",
+    "Gabriel",
+    "Heigl",
+    "Redford",
+    "Bextor",
+    "Duke",
+    "Blunt",
+  ],
+  middleName: [
+    "Yaroslav",
+    "Charles",
+    "Andrei",
+    "Michael",
+    "Gustav",
+    "Antonio",
+    "Steve",
+    "Robin",
+    "Jamie",
+    "Oliver",
+  ],
+  age: [50, 31, 21, 86, 63, 25, 15, 40, 23, 33],
+  gender: ["male", "female"],
+};
+
+const person = [form.firstName[i], form.surName[i], form.middleName[i], form.gender[i], form.age[i]];
+
+console.log(person[i]);
