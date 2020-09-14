@@ -112,9 +112,49 @@ let form = {
     "Oliver",
   ],
   age: [50, 31, 21, 86, 63, 25, 15, 40, 23, 33],
-  gender: ["male", "female"],
+  dateOfBirth: [],
 };
 
-const person = [form.firstName[i], form.surName[i], form.middleName[i], form.gender[i], form.age[i]];
+const getPerson = (i) => {
+  console.log(`The person you are interested in is ${form.firstName[i]} ${form.surName[i]} ${form.middleName[i]}, ${form.age[i]} age of old`);
+};
 
-console.log(person[i]);
+getPerson(i);
+
+const getPeople = (i) => {
+  return [
+    form.firstName[i],
+    form.surName[i],
+    form.middleName[i],
+    form.age[i],
+  ]
+}
+
+const comparePerson = (a, b) => {
+  if (a.firstName === b.firstName) {
+    if (a.middleName === b.middleName) {
+      return a.lastName <= b.lastName ? -1 : 1;
+    }
+
+    return a.middleName < b.middleName ? -1 : 1;
+  }
+  return a.firstName < b.firstName ? -1 : 1;
+};
+
+const sortArray = (a, compare, direction = 1) => {
+  for (let i = 0; i < a.length - 1; i += 1) {
+    for (let j = 0; j < a.length - 1; j += 1) {
+      if (compare(a[j], a[j + 1]) === direction) {
+        const t = a[j];
+        a[j] = a[j + 1];
+        a[j + 1] = t;
+      }
+    }
+  }
+};
+
+const people = getPeople(i);
+
+sortArray(people, comparePerson);
+
+console.log(people);
