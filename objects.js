@@ -72,8 +72,6 @@ showSides(tSides.la, tSides.lb, tSides.lc, long);
 
 // Анкета
 
-let i = 0;
-
 let form = {
   firstName: [
     "Andrew",
@@ -115,20 +113,28 @@ let form = {
   dateOfBirth: [],
 };
 
-const getPerson = (i) => {
-  console.log(`The person you are interested in is ${form.firstName[i]} ${form.surName[i]} ${form.middleName[i]}, ${form.age[i]} age of old`);
+const showPerson = (i) => {
+  console.log(
+    `The person you are interested in is ${form.firstName[i]} ${form.surName[i]} ${form.middleName[i]}, ${form.age[i]} age of old`
+  );
 };
 
-getPerson(i);
+// showPerson(i);
 
-const getPeople = (i) => {
-  return [
-    form.firstName[i],
-    form.surName[i],
-    form.middleName[i],
-    form.age[i],
-  ]
-}
+const getPerson = (i) => ({
+  firstName: form.firstName[i],
+  secondName: form.surName[i],
+  middleName: form.middleName[i],
+  age: form.age[i],
+});
+
+const getPeople = () => {
+  const gp = [];
+  for (let i = 0; i < 10; i += 1) {
+    gp.push(getPerson(i));
+  }
+  return gp;
+};
 
 const comparePerson = (a, b) => {
   if (a.firstName === b.firstName) {
@@ -153,8 +159,57 @@ const sortArray = (a, compare, direction = 1) => {
   }
 };
 
-const people = getPeople(i);
+const people = getPeople();
 
 sortArray(people, comparePerson);
 
 console.log(people);
+
+// сравнить по возрасту
+
+const comparePersonAge = (a, b) => {
+  if (a.age === b.age) {
+    return a.age < b.age ? -1 : 1;
+  }
+};
+
+const sortArrayAge = (a, compare, direction = 1) => {
+  for (let i = 0; i < a.length - 1; i += 1) {
+    for (let j = 0; j < a.length - 1; j += 1) {
+      if (compare(a[j], a[j + 1]) === direction) {
+        const t = a[j];
+        a[j] = a[j + 1];
+        a[j + 1] = t;
+      }
+    }
+  }
+};
+
+const peopleAge = getPeople();
+
+sortArrayAge(peopleAge, comparePersonAge);
+
+console.log(peopleAge);
+
+// вывести самый молодой возраст, самый старый и средний возраст
+
+const getPeopleAge = () => {
+  let sum = 0;
+  let min = form.age[0];
+  let max = form.age[0];
+  for (let i = 0; i < 10; i += 1) {
+    min = form.age[i] < min ? form.age[i] : min;
+    max = form.age[i] > max ? form.age[i] : max;
+    sum += form.age[i];
+    mid = sum / 10;
+  }
+  return {
+    minAge: min,
+    maxAge: max,
+    midAge: mid,
+  };
+};
+
+const gpa = getPeopleAge();
+
+console.log(gpa);
