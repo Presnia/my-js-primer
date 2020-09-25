@@ -72,6 +72,11 @@ showSides(tSides.la, tSides.lb, tSides.lc, long);
 
 // Анкета
 
+const SortOrder = {
+  Asc: -1,
+  Desc: 1,
+};
+
 let form = {
   firstName: [
     "Andrew",
@@ -110,7 +115,10 @@ let form = {
     "Oliver",
   ],
   age: [50, 31, 21, 86, 63, 25, 15, 40, 23, 33],
-  dateOfBirth: [],
+  ages() {
+    const today = new Date();
+    return today.getFullYear() - this.birthDate.getFullYear();
+  },
 };
 
 const showPerson = (i) => {
@@ -173,7 +181,7 @@ const comparePersonAge = (a, b) => {
   }
 };
 
-const sortArrayAge = (a, compare, direction = 1) => {
+const sortArrayAge = (a, compare, direction = SortOrder.Asc) => {
   for (let i = 0; i < a.length - 1; i += 1) {
     for (let j = 0; j < a.length - 1; j += 1) {
       if (compare(a[j], a[j + 1]) === direction) {
@@ -213,3 +221,30 @@ const getPeopleAge = () => {
 const gpa = getPeopleAge();
 
 console.log(gpa);
+
+const v = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+const getEdgeValue = (a, compare, direction = SortOrder.Asc) => {
+  let max = a[0];
+  for (let i = 0; i < a.length; i += 1) {
+    if (compare(max, a[i]) === direction) {
+      max = a[i];
+    }
+  }
+  return max;
+};
+
+
+
+const compPeople = (p1, p2) => {
+  const a = p1.age;
+  const b = p2.age;
+
+  if (a === b) return 0;
+  if (a < b) return 1;
+  if (a > b) return -1;
+};
+
+const val = getEdgeValue(people, compPeople, SortOrder.Asc);
+
+console.log(val);
