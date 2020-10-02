@@ -104,7 +104,7 @@ class TaxCalculator {
         [key]: value
       }) => !typeof income === 'object' && {
         [key]: value
-      } === true;
+      } === true
     );
   }
 
