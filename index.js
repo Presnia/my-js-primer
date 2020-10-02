@@ -1,87 +1,181 @@
+/* eslint-disable max-classes-per-file */
+/* eslint-disable class-methods-use-this */
 /* eslint-disable no-console */
 
-const Roles = {
-  User: "user",
-  Admin: "admin",
-  Manager: "manager",
+class TaxRateWrongFormat extends Error {
+  constructor(taxRateValue, ...params) {
+    super(...params);
+
+    this.name = "TaxRateWrongFormat";
+    this.taxRateValue = taxRateValue;
+    this.date = new Date();
+  }
+}
+
+class TaxRateWrongRange extends Error {
+  constructor(taxRateValue, minRange, maxRange, ...params) {
+    super(...params);
+
+    this.name = "TaxRateWrongRange";
+    this.taxRateValue = taxRateValue;
+    this.minRange = minRange;
+    this.maxRange = maxRange;
+    this.date = new Date();
+  }
+}
+
+class IncomeSumWrongFormat extends Error {
+  constructor(incomeValue, ...params) {
+    super(...params);
+
+    this.name = "IncomeSumWrongFormat";
+    this.incomeValue = incomeValue;
+    this.date = new Date();
+  }
+}
+
+class IncomeWrongFormat extends Error {
+  constructor(incomeValue, ...params) {
+    super(...params);
+
+    this.name = "IncomeWrongFormat";
+    this.incomeValue = incomeValue;
+    this.date = new Date();
+  }
+}
+
+class TaxCalculator {
+  constructor(taxRate) {
+    this.setTaxRate(taxRate);
+  }
+
+  get TaxRate() {
+    return this.taxRate;
+  }
+
+  set TaxRate(taxRate) {
+    this.setTaxRate(taxRate);
+  }
+
+  setTaxRate(taxRate) {
+    const minRange = 0;
+    const maxRange = 10;
+
+    if (typeof taxRate !== "number") {
+      throw new TaxRateWrongFormat(taxRate, "Wrong tax percent format");
+    }
+
+    if (!(minRange <= taxRate && taxRate <= maxRange)) {
+      throw new TaxRateWrongRange(
+        taxRate,
+        minRange,
+        maxRange,
+        "Tax rate not in allowed range"
+      );
+    }
+
+    this.taxRate = taxRate / 100;
+  }
+
+  calculateTaxes(income) {
+    if (typeof income !== "number" && value > 2) {
+      throw new IncomeSumWrongFormat(income, "Income sum wrong format");
+    }
+
+    return income * this.taxRate;
+  }
+
+  calculateTotalTaxes(income) {
+    if (!this.checkIncomeObjectProperty(income)) {
+      throw "Income type of data is incorrect form!";
+    }
+
+    if (!this.checkIncomeObjectFormat(income)) {
+      throw new IncomeWrongFormat(income, "Income object in wrong format");
+    }
+
+    const totalIncome = this.calculateTotalIncome(income);
+    return this.calculateTaxes(totalIncome);
+  }
+
+  checkIncomeObjectProperty(income) {
+    return Object.values(income).reduce(
+      (income, {
+        [key]: value
+      }) => !typeof income === 'object' && {
+        [key]: value
+      } === true;
+    );
+  }
+
+  checkIncomeObjectFormat(income) {
+    return Object.values(income).reduce(
+      (isCorrect, value) => isCorrect && typeof value === "number",
+      true
+    );
+  }
+
+  calculateTotalIncome(income) {
+    return Object.values(income).reduce((sum, value) => sum + value, 0);
+  }
+}
+
+const IvanIncome = {
+  Work: 200,
+  Hobby: 20,
+  WorkAtBar: 400,
+  Win: 200,
 };
 
-function Person(firstName, lastName, birthDate = new Date(1990, 5, 15)) {
-  this.firstName = firstName;
-  this.lastName = lastName;
-  this.birthDate = birthDate;
+const LenaIncome = {
+  Work1: 4567,
+  Work2: 123,
+  Work3: 789,
+  Work4: 456,
+};
 
-  this.calculateAge = function () {
-    const now = new Date();
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const dob = new Date(this.birthDate);
-    const dobNow = new Date(today.getFullYear(), dob.getMonth(), dob.getDate());
-    let age;
+const MashaIncome = {
+  Hobby: 4543,
+};
 
-    age = today.getFullYear() - dob.getFullYear();
-    if (today < dobNow) {
-      age = age - 1;
-    }
-    return age;
-  };
+try {
+  const trc = new TaxCalculator(5);
 
-  this.calculateYearsUntilRetirement = function (ageOfRetirement = 65) {
-    if (calculateAge(person) < ageOfRetirement) {
-      return ageOfRetirement - calculateAge(person);
-    } else {
-      return 0;
-    }
-  };
+  const ivanTaxes = trc.calculateTotalTaxes(IvanIncome);
+  const lenaTaxes = trc.calculateTotalTaxes(LenaIncome);
+  const mashaTaxes = trc.calculateTotalTaxes(MashaIncome);
 
-  this.print = function () {
-    console.log(`First Name: ${this.firstName}`);
-    console.log(`Last Name: ${this.lastName}`);
-    console.log(`Date of Birth: ${this.birthDate}`);
-    console.log(`Age: ${this.calculateAge()}`);
-  };
+  console.log(ivanTaxes, lenaTaxes, mashaTaxes);
+
+  console.log(trc.calculateTaxes(3459));
+
+  const errTaxes1 = trc.calculateTotalTaxes({
+    fsdfsd: 1000,
+    sdfsdf: 3456,
+  });
+
+  console.log(errTaxes1);
+} catch (e) {
+  console.log(e.name);
+  console.log(e.message);
+  console.log(e.date);
+  if (e instanceof TaxRateWrongFormat) {
+    console.log(e.taxRateValue);
+  }
+
+  if (e instanceof TaxRateWrongRange) {
+    console.log(e.taxRateValue);
+    console.log(e.minRange);
+    console.log(e.maxRange);
+  }
+
+  if (e instanceof IncomeSumWrongFormat) {
+    console.log(e.incomeValue);
+  }
+
+  if (e instanceof IncomeWrongFormat) {
+    console.log(e.incomeValue);
+  }
+} finally {
+  console.log("Always works");
 }
-
-function Employee(person, role) {
-  this.person = person;
-  this.role = role;
-
-  this.printRole = function () {
-    switch (this.role) {
-      case Roles.User:
-        console.log(`* General User *`);
-        break;
-
-      case Roles.Admin:
-        console.log(`# Administrator #`);
-        break;
-
-      case Roles.Manager:
-        console.log(`<* Line Manager *>`);
-        break;
-
-      default:
-        console.log(`-= Unknown Role =-`);
-        break;
-    }
-  };
-
-  this.print = function () {
-    this.person.print();
-    this.printRole();
-  };
-}
-
-const addressBook = [
-  new Employee(new Person("John", "Doe", new Date(1970, 7, 8)), Roles.User),
-  new Employee(new Person("Jane", "Doe", new Date(2001, 6, 19)), Roles.User),
-  new Employee(
-    new Person("Neo", "Anderson", new Date(1980, 3, 17)),
-    Roles.Admin
-  ),
-  new Employee(new Person("Trinity", "Anderson"), Roles.Manager),
-];
-
-addressBook.forEach((employee) => employee.print());
-
-console.log(addressBook[0]);
-console.log(typeof addressBook[0]);
