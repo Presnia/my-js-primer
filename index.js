@@ -100,11 +100,11 @@ class TaxCalculator {
 
   checkIncomeObjectProperty(income) {
     return Object.values(income).reduce(
-      (income, {
-        [key]: value
-      }) => !typeof income === 'object' && {
-        [key]: value
-      } === true
+      (income, { [key]: value }) =>
+        typeof income === "object" &&
+        {
+          [key]: value,
+        } === true
     );
   }
 
