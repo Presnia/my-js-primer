@@ -87,7 +87,10 @@ class TaxCalculator {
 
   calculateTotalTaxes(income) {
     if (!this.checkIncomeObjectProperty(income)) {
-      throw "Income type of data is in incorrect form!";
+      throw new IncomeWrongFormat(
+        income,
+        "Income type of data is in incorrect form!"
+      );
     }
 
     if (!this.checkIncomeObjectFormat(income)) {
