@@ -87,7 +87,7 @@ class TaxCalculator {
 
   calculateTotalTaxes(income) {
     if (!this.checkIncomeObjectProperty(income)) {
-      throw "Income type of data is incorrect form!";
+      throw "Income type of data is in incorrect form!";
     }
 
     if (!this.checkIncomeObjectFormat(income)) {
@@ -98,21 +98,21 @@ class TaxCalculator {
     return this.calculateTaxes(totalIncome);
   }
 
-  checkIncomeObjectProperty(income) {
-    return Object.values(income).reduce(
-      (income, { [key]: value }) =>
-        typeof income === "object" &&
-        {
-          [key]: value,
-        } === true
-    );
-  }
-
   checkIncomeObjectFormat(income) {
     return Object.values(income).reduce(
       (isCorrect, value) => isCorrect && typeof value === "number",
       true
     );
+  }
+
+  checkIncomeObjectProperty(income) {
+    if (
+      typeof income === "object" &&
+      typeof income !== "array" &&
+      checkIncomeObjectFormat(income)
+    ) {
+      return Object.keys(income).reduce((income) => income.length > 0);
+    }
   }
 
   calculateTotalIncome(income) {
