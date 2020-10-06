@@ -106,12 +106,11 @@ class TaxCalculator {
   }
 
   checkIncomeObjectProperty(income) {
-    if (
-      typeof income === "object" &&
-      typeof income !== "array" &&
-      checkIncomeObjectFormat(income)
-    ) {
-      return Object.keys(income).reduce((income) => income.length > 0);
+    if (typeof income === "object" && typeof income !== "array") {
+      return (
+        Object.keys((income) => income.length > 0),
+        Object.values((value) => typeof value === "number", true)
+      );
     }
   }
 
